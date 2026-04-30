@@ -523,8 +523,49 @@ function faq(el){
 }
 
 function handleApply(btn){
-  btn.textContent='Application sent — we\'ll be in touch within 24 hours ✓';
-  btn.classList.add('sent');
+  // Get form values
+  var formCard = btn.closest('.form-card');
+  var inputs = formCard.querySelectorAll('.f-input');
+  var name = inputs[0].value.trim();
+  var companyRole = inputs[1].value.trim();
+  var email = inputs[2].value.trim();
+  var decision = inputs[3].value.trim();
+
+  if(!name || !email) {
+    alert('Please fill at least your name and email.');
+    return;
+  }
+
+  // Send to Formspree — REPLACE WITH YOUR ACTUAL ENDPOINT
+  fetch('https://formspree.io/f/xnjwqjbe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: name,
+      companyRole: companyRole,
+      email: email,
+      decision: decision
+    })
+  }).then(function(response) {
+    if(response.ok) {
+      btn.textContent = 'Application sent — we\'ll be in touch within 24 hours ✓';
+      btn.classList.add('sent');
+      // Clear form fields
+      inputs.forEach(function(inp) { inp.value = ''; });
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  }).catch(function(error) {
+    alert('Error: ' + error.message);
+  });
+
+  // Track in GA4 (if needed)
+  if(typeof gtag === 'function') {
+    gtag('event', 'form_submit', {
+      event_category: 'conversion',
+      event_label: 'design_partner_application'
+    });
+  }
 }
 
 const obs=new IntersectionObserver(entries=>{
