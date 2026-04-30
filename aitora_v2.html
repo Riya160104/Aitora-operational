@@ -1,0 +1,682 @@
+Here is the HTML code with all blue text colors replaced by an elegant, refined dark slate palette, while preserving the rest of the design.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aitora — Operational Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FFFFFF;
+  --bg2:#F5F5F5;
+  --bg3:#EEEEEE;
+  --accent:#0A0A0A;
+  --accent2:#333333;
+  --gold:#B8860B;
+  --paper:#F2EFE8;
+  --paper2:#E8E4DA;
+  --white:#FFFFFF;
+  --ink:#0A0A0A;
+  --muted:rgba(0,0,0,0.5);
+  --line:rgba(0,0,0,0.08);
+  --line2:rgba(0,0,0,0.15);
+  --r:8px;
+  --elegant:#2C3E3F;     /* elegant deep teal-slate, replaces blue */
+  --elegant-light:#4A6365;
+  --elegant-soft:#7F9B9D;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;cursor:default}
+
+/* ── CUSTOM CURSOR ── */
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,background .2s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(0,0,0,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .25s cubic-bezier(.25,.46,.45,.94)}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 4rem;height:64px;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
+.logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;letter-spacing:-.02em;color:var(--ink)}
+.logo span{color:var(--elegant);font-style:italic}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-badge{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--elegant);background:rgba(44,62,63,.08);border:1px solid rgba(44,62,63,.2);padding:.3rem .8rem;border-radius:100px}
+.nav-cta{background:var(--accent);color:var(--white);font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.04em;padding:.55rem 1.4rem;border-radius:6px;border:none;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--accent2);transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:grid;
+  grid-template-columns:1fr 440px;
+  align-items:center;gap:4rem;
+  padding:8rem 4rem 5rem;
+  position:relative;overflow:hidden;
+  max-width:1300px;margin:0 auto;
+  background:var(--bg);
+}
+.hero::before{
+  content:'';position:absolute;
+  width:800px;height:800px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,0,0,.04) 0%,transparent 65%);
+  right:-200px;top:-200px;pointer-events:none;
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--elegant);margin-bottom:1.75rem;
+  opacity:0;animation:rise .5s .05s forwards;
+}
+.hero-kicker::before{content:'';width:24px;height:1px;background:var(--elegant)}
+h1{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(3rem,5vw,5rem);line-height:1.0;
+  letter-spacing:-.03em;margin-bottom:1.5rem;
+  color:var(--ink);
+  opacity:0;animation:rise .6s .15s forwards;
+}
+h1 .hl{color:var(--elegant);font-style:italic}
+.hero-desc{
+  font-size:1.05rem;color:var(--muted);line-height:1.75;
+  max-width:480px;margin-bottom:2.5rem;
+  opacity:0;animation:rise .6s .25s forwards;
+}
+.hero-actions{
+  display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+  opacity:0;animation:rise .6s .35s forwards;
+}
+.btn-primary{
+  background:var(--accent);color:var(--white);
+  font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:600;
+  padding:.85rem 2.25rem;border-radius:7px;border:none;cursor:pointer;
+  transition:all .2s;text-decoration:none;display:inline-block;
+  position:relative;overflow:hidden;
+}
+.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.15)}
+.btn-primary:hover::after{opacity:1}
+.btn-ghost{
+  font-size:.85rem;color:var(--muted);text-decoration:none;
+  display:inline-flex;align-items:center;gap:.4rem;
+  border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:2px;
+  transition:color .2s,border-color .2s;
+}
+.btn-ghost:hover{color:var(--ink);border-color:rgba(0,0,0,.4)}
+.hero-micro{font-size:.72rem;color:rgba(0,0,0,.35);margin-top:1rem;opacity:0;animation:rise .5s .45s forwards}
+
+/* ── HERO VISUAL — CHAIN CARD ── */
+.chain-visual{
+  opacity:0;animation:rise .7s .4s forwards;
+  display:flex;flex-direction:column;gap:0;position:relative;
+}
+.cv-node{
+  background:var(--bg);border:1px solid var(--line2);
+  border-radius:12px;padding:1.1rem 1.25rem;position:relative;
+  transition:border-color .3s;
+}
+.cv-node:hover{border-color:rgba(0,0,0,.4)}
+.cv-node.triggered{border-color:var(--elegant);background:rgba(44,62,63,.02)}
+.cv-tag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+.cv-txt{font-size:.9rem;color:var(--ink);line-height:1.4;font-weight:400}
+.cv-meta{font-size:.7rem;color:rgba(0,0,0,.4);margin-top:.3rem}
+.cv-arrow{
+  display:flex;align-items:center;justify-content:center;
+  padding:.4rem 0;gap:.5rem;
+  font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(0,0,0,.35);
+}
+.cv-arrow::before,.cv-arrow::after{content:'';flex:1;height:1px;background:var(--line)}
+.cv-badge{
+  position:absolute;top:.75rem;right:.75rem;
+  font-size:.58rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:.2rem .6rem;border-radius:100px;
+}
+.b-warn{background:rgba(44,62,63,.08);color:var(--elegant);border:1px solid rgba(44,62,63,.2)}
+.b-ok{background:rgba(44,62,63,.12);color:var(--elegant);border:1px solid rgba(44,62,63,.2)}
+
+/* ── PULSE LINE ── */
+.pulse-line{width:2px;height:32px;background:linear-gradient(var(--elegant),transparent);margin:0 auto;position:relative;animation:pulse-down 2s ease-in-out infinite}
+@keyframes pulse-down{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ── STATS TICKER ── */
+.stats-band{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:var(--accent);
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.stat-item{
+  padding:2.25rem 2rem;border-right:1px solid rgba(255,255,255,.1);
+  text-align:center;position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.stat-item:last-child{border-right:none}
+.stat-item:hover{background:rgba(255,255,255,.03)}
+.stat-n{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:2.6rem;color:var(--white);line-height:1;
+  letter-spacing:-.03em;margin-bottom:.4rem;
+}
+.stat-n.gold{color:var(--gold)}
+.stat-l{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.5;max-width:120px;margin:0 auto}
+.stat-src{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:.35rem}
+
+/* ── SECTION SHARED ── */
+.s-wrap{max-width:1200px;margin:0 auto;padding:6rem 4rem}
+.s-kicker{font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--elegant);margin-bottom:.75rem}
+.s-h{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-.025em;line-height:1.1;color:var(--ink)}
+.s-h em{font-style:italic;color:var(--elegant)}
+.s-sub{font-size:.95rem;color:var(--muted);line-height:1.75;margin-top:.75rem;max-width:520px}
+
+/* ── PROBLEM — 3 CARDS ── */
+.prob-section{background:var(--bg)}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:3rem}
+.prob-card{background:var(--bg2);padding:2rem 1.75rem;transition:background .25s;position:relative}
+.prob-card:hover{background:var(--bg3)}
+.prob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--elegant),var(--accent2))}
+.prob-icon{font-size:1.5rem;margin-bottom:1.1rem;display:block;color:var(--elegant)}
+.prob-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;letter-spacing:-.01em}
+.prob-card p{font-size:.83rem;color:var(--muted);line-height:1.65}
+
+/* ── PROOF BAR ── */
+.proof-bar{background:var(--accent);padding:1.5rem 4rem;text-align:center}
+.proof-bar p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:rgba(255,255,255,.9)}
+.proof-bar strong{font-style:normal;color:var(--white)}
+
+/* ── COMPARE ── */
+.compare-section{background:var(--bg2)}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.cc{border-radius:14px;padding:2rem;border:1px solid var(--line2)}
+.cc.them{background:var(--white)}
+.cc.us{background:var(--accent);border-color:var(--accent)}
+.cc-head{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem}
+.cc.them .cc-head{color:rgba(0,0,0,.35)}
+.cc.us .cc-head{color:rgba(255,255,255,.7)}
+.cc-brand{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:1.25rem}
+.cc.them .cc-brand{color:rgba(0,0,0,.3)}
+.cc.us .cc-brand{color:var(--white)}
+.cc-row{display:flex;align-items:flex-start;gap:.65rem;margin-bottom:.75rem}
+.cc-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:.45rem}
+.cc.them .cc-dot{background:rgba(0,0,0,.15)}
+.cc.us .cc-dot{background:rgba(255,255,255,.5)}
+.cc-row-t{font-size:.85rem;line-height:1.5}
+.cc.them .cc-row-t{color:rgba(0,0,0,.4);text-decoration:line-through;text-decoration-color:rgba(0,0,0,.1)}
+.cc.us .cc-row-t{color:rgba(255,255,255,.9)}
+
+/* ── HOW — HORIZONTAL STEPS ── */
+.how-section{background:var(--bg)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:3.5rem;position:relative}
+.steps::before{content:'';position:absolute;top:28px;left:calc(100%/6);right:calc(100%/6);height:1px;background:linear-gradient(90deg,transparent,var(--elegant),transparent);z-index:0}
+.step-item{text-align:center;padding:0 2rem;position:relative;z-index:1}
+.step-num{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--bg2);border:1px solid var(--line2);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;
+  font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--elegant);
+  transition:all .25s;
+}
+.step-item:hover .step-num{background:var(--elegant);border-color:var(--elegant);color:var(--white)}
+.step-tag{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--elegant);background:rgba(44,62,63,.08);padding:.2rem .6rem;border-radius:100px;display:inline-block;margin-bottom:.75rem}
+.step-item h3{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:.45rem}
+.step-item p{font-size:.8rem;color:var(--muted);line-height:1.65}
+.step-eg{font-size:.72rem;color:var(--elegant);background:rgba(44,62,63,.05);padding:.3rem .75rem;border-radius:4px;display:inline-block;margin-top:.6rem;opacity:0;transition:opacity .2s}
+.step-item:hover .step-eg{opacity:1}
+
+/* ── PRODUCT PREVIEW ── */
+.preview-section{background:var(--accent)}
+.preview-section .s-h{color:var(--white)}
+.preview-section .s-sub{color:rgba(255,255,255,.6)}
+.preview-section .s-kicker{color:var(--gold)}
+.mock{
+  background:#1A1A1A;border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;overflow:hidden;margin-top:3rem;
+  box-shadow:0 32px 80px rgba(0,0,0,.3);
+}
+.mock-bar{
+  background:#222;border-bottom:1px solid rgba(255,255,255,.08);
+  padding:.85rem 1.25rem;display:flex;align-items:center;gap:.5rem;
+}
+.m-dot{width:10px;height:10px;border-radius:50%}
+.mock-title{font-size:.78rem;color:rgba(255,255,255,.5);margin-left:.5rem;font-weight:500}
+.mock-body{padding:1.75rem}
+.mock-card{border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:1.5rem;background:#252525}
+.mc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem}
+.mc-t{font-size:.95rem;font-weight:600;color:#fff}
+.mc-d{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:.25rem}
+.mc-badge{font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px;background:rgba(44,62,63,.25);color:#C7D1D1;border:1px solid rgba(44,62,63,.35);flex-shrink:0}
+.imp-label-row{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.75rem}
+.imp-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem}
+.imp-l{font-size:.78rem;color:rgba(255,255,255,.6);width:170px;flex-shrink:0}
+.imp-track{flex:1;background:rgba(255,255,255,.08);border-radius:3px;height:5px;overflow:hidden}
+.imp-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.fill-r{background:linear-gradient(90deg,#C37D5A,#E6B89A)}  /* elegant terracotta */
+.fill-a{background:linear-gradient(90deg,#DBB87B,#F3DBA5)}
+.imp-v{font-size:.75rem;font-weight:700;width:36px;text-align:right}
+.v-r{color:#E6B89A}.v-a{color:#F3DBA5}
+.root-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:1rem 1.1rem;font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.65;margin:1.1rem 0;border-left:3px solid var(--elegant-soft)}
+.act-label{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:.85rem 0 .5rem}
+.act-item{display:flex;align-items:center;gap:.65rem;padding:.6rem .85rem;background:rgba(255,255,255,.04);border-radius:7px;margin-bottom:.4rem;font-size:.8rem;color:rgba(255,255,255,.8)}
+.act-n{width:20px;height:20px;border-radius:50%;background:var(--white);color:var(--elegant);font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── CTA SECTION ── */
+.cta-section{
+  background:var(--bg);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:6rem 4rem;
+}
+.cta-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:5rem;align-items:start}
+.cta-l h2{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:1rem;color:var(--ink)}
+.cta-l h2 em{font-style:italic;color:var(--elegant)}
+.cta-l p{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:2rem;max-width:420px}
+.spots-row{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem}
+.spot{width:10px;height:10px;border-radius:50%}
+.spot-f{background:var(--elegant)}
+.spot-o{background:rgba(0,0,0,.12)}
+.spots-txt{font-size:.78rem;color:var(--muted)}
+.spots-txt strong{color:var(--ink)}
+.benefit-list{display:flex;flex-direction:column;gap:.75rem}
+.benefit{display:flex;align-items:flex-start;gap:.7rem}
+.b-icon{
+  width:20px;height:20px;border-radius:50%;background:rgba(44,62,63,.12);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;color:var(--elegant);font-weight:700;margin-top:1px;
+}
+.b-txt{font-size:.85rem;color:rgba(0,0,0,.7);line-height:1.5}
+.b-txt strong{color:var(--ink);font-weight:500}
+
+/* ── FORM ── */
+.form-card{
+  background:var(--bg2);border:1px solid var(--line2);
+  border-radius:16px;padding:2.25rem;
+}
+.form-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:.3rem}
+.form-card .f-sub{font-size:.78rem;color:var(--muted);margin-bottom:1.75rem;line-height:1.5}
+.f-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.4rem}
+.f-input{
+  width:100%;background:var(--white);border:1px solid var(--line2);
+  border-radius:7px;padding:.7rem .95rem;font-family:'Outfit',sans-serif;
+  font-size:.85rem;color:var(--ink);outline:none;transition:border-color .2s;
+  margin-bottom:1rem;
+}
+.f-input::placeholder{color:rgba(0,0,0,.25)}
+.f-input:focus{border-color:rgba(0,0,0,.5)}
+textarea.f-input{resize:none;height:72px}
+.f-submit{
+  width:100%;padding:.85rem;background:var(--accent);color:var(--white);
+  border:none;border-radius:7px;font-family:'Outfit',sans-serif;
+  font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;
+  letter-spacing:.03em;position:relative;overflow:hidden;
+}
+.f-submit:hover{background:var(--accent2)}
+.f-submit.sent{background:var(--elegant);pointer-events:none}
+.f-note{font-size:.68rem;color:rgba(0,0,0,.3);text-align:center;margin-top:.75rem;line-height:1.5}
+
+/* ── FAQ ── */
+.faq-section{background:var(--bg2);padding:5rem 4rem}
+.faq-inner{max-width:700px;margin:0 auto}
+.faq-h{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;letter-spacing:-.02em;margin-bottom:2.5rem;text-align:center;color:var(--ink)}
+.faq-item{border-bottom:1px solid var(--line);overflow:hidden}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 0;cursor:pointer;font-size:.92rem;font-weight:400;
+  color:rgba(0,0,0,.7);gap:1rem;transition:color .2s;
+  user-select:none;
+}
+.faq-q:hover{color:var(--ink)}
+.faq-ico{
+  width:22px;height:22px;border-radius:50%;border:1px solid var(--line2);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:.9rem;color:var(--muted);transition:all .25s;
+}
+.faq-a{display:none;padding:0 0 1.25rem;font-size:.83rem;color:var(--muted);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-q{color:var(--elegant)}
+.faq-item.open .faq-ico{background:var(--elegant);border-color:var(--elegant);color:#fff;transform:rotate(45deg)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--accent);border-top:1px solid rgba(255,255,255,.1);
+  padding:2.5rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.f-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:rgba(255,255,255,.7)}
+.f-logo span{color:var(--white)}
+.f-links{display:flex;gap:1.5rem}
+.f-links a{font-size:.78rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:rgba(255,255,255,.8)}
+.f-copy{font-size:.72rem;color:rgba(255,255,255,.3)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
+
+/* ── ANIMATIONS ── */
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;padding:7rem 2rem 4rem}
+  .chain-visual{display:none}
+  .stats-band{grid-template-columns:repeat(2,1fr)}
+  .stat-item:nth-child(2){border-right:none}
+  .prob-grid,.compare-grid,.steps,.cta-inner{grid-template-columns:1fr}
+  .steps::before{display:none}
+  .s-wrap{padding:4rem 2rem}
+  nav{padding:0 1.5rem}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+  .cta-section{padding:4rem 2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Ait<span>o</span>ra</div>
+  <div class="nav-right">
+    <div class="nav-badge">Early Access Open</div>
+    <a href="#apply" class="nav-cta">Apply — 3 spots left</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="background:var(--bg);padding-top:0">
+<div class="hero">
+  <div>
+    <div class="hero-kicker">Operational Intelligence for Mid-Market SaaS</div>
+    <h1>Your data already knows<br><span class="hl">why</span> your business works.</h1>
+    <p class="hero-desc">Aitora connects decisions to outcomes across your company — giving leadership the intelligence layer it's been missing.</p>
+    <div class="hero-actions">
+      <a href="#apply" class="btn-primary">Apply to be a founding design partner &rarr;</a>
+      <a href="#how" class="btn-ghost">See how it works &darr;</a>
+    </div>
+    <p class="hero-micro">3 of 5 spots remaining · Think Palantir — built for companies with 200–500 people. No $5M contract. No 12-month implementation.</p>
+  </div>
+
+  <!-- CHAIN VISUAL -->
+  <div class="chain-visual">
+    <div class="cv-node">
+      <div class="cv-tag">Decision · Sales · Jan 14</div>
+      <div class="cv-txt">Changed ICP targeting criteria in GTM motion</div>
+      <div class="cv-meta">CEO + VP Sales · Logged via Salesforce</div>
+    </div>
+    <div class="pulse-line"></div>
+    <div class="cv-arrow">73 days of invisible impact</div>
+    <div class="pulse-line"></div>
+    <div class="cv-node">
+      <div class="cv-tag">Signal · Ops + Finance · Mar 28</div>
+      <div class="cv-txt">Onboarding friction +40% · CAC up 28%</div>
+      <div class="cv-meta">Detected across HubSpot + QuickBooks</div>
+      <div class="cv-badge b-warn">Undetected</div>
+    </div>
+    <div class="pulse-line"></div>
+    <div class="cv-node triggered">
+      <div class="cv-tag">Aitora Intelligence · Now</div>
+      <div class="cv-txt">Root cause found — 3 corrective actions surfaced</div>
+      <div class="cv-meta">Confidence: High · Time saved: ~3 months</div>
+      <div class="cv-badge b-ok">Resolved</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- STATS (black background section) -->
+<div class="stats-band reveal">
+  <div class="stat-item">
+    <div class="stat-n gold">$3.1T</div>
+    <div class="stat-l">Lost annually to poor organisational decisions</div>
+    <div class="stat-src">McKinsey Global Institute</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n">67%</div>
+    <div class="stat-l">Of leaders feel data-rich but still decision-blind</div>
+    <div class="stat-src">PwC Global Analytics Survey</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n">73 days</div>
+    <div class="stat-l">Average lag between a decision and its business impact</div>
+    <div class="stat-src">Aitora Research, 2024</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n gold">$0</div>
+    <div class="stat-l">Tools built for decision intelligence at your company size</div>
+    <div class="stat-src">Palantir starts at $5M+</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="prob-section">
+  <div class="s-wrap">
+    <div class="s-kicker reveal">The Problem</div>
+    <div class="s-h reveal">Three gaps costing you<br><em>more than you realise</em></div>
+    <div class="prob-grid reveal">
+      <div class="prob-card">
+        <span class="prob-icon">◊</span>
+        <h3>Data is everywhere.<br>Insight is nowhere.</h3>
+        <p>CRM, HRIS, finance, ops — each generates data, each tells a partial story. Stitching it together manually is a full-time job nobody has.</p>
+      </div>
+      <div class="prob-card">
+        <span class="prob-icon">◊</span>
+        <h3>Every team sees<br>a different truth.</h3>
+        <p>Sales sees pipeline. Product sees activation. Finance sees revenue. Everyone optimises their slice while the real cause-and-effect chain stays invisible.</p>
+      </div>
+      <div class="prob-card">
+        <span class="prob-icon">◊</span>
+        <h3>Decisions leave<br>no trace.</h3>
+        <p>You see that churn spiked. You cannot see that a pricing change three months ago caused it. The lag between decision and impact is where all the learning dies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF BAR -->
+<div class="proof-bar reveal">
+  <p>“You are making high-stakes calls with partial information — not because you lack data, but because <strong>you lack the connections between it.</strong>”</p>
+</div>
+
+<!-- COMPARE -->
+<section class="compare-section">
+  <div class="s-wrap">
+    <div class="s-kicker reveal">Where Aitora sits</div>
+    <div class="s-h reveal">Every other tool shows you <em>what.</em><br>We show you <em>why.</em></div>
+    <div class="compare-grid reveal">
+      <div class="cc them">
+        <div class="cc-head">What you already have</div>
+        <div class="cc-brand">BI Tools &amp; Dashboards</div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Shows what happened last quarter</div></div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Single-department, siloed view</div></div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">No decision tracing or causality</div></div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Forgets everything over time</div></div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Requires an analyst to interpret</div></div>
+      </div>
+      <div class="cc us">
+        <div class="cc-head">What Aitora adds</div>
+        <div class="cc-brand">Aitora</div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Shows <em>why</em> it happened and what to do</div></div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Cross-departmental cause-and-effect</div></div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Traces every decision to its downstream impact</div></div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Memory that compounds over time</div></div>
+        <div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Intelligence your CEO can act on directly</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="s-wrap">
+    <div class="s-kicker reveal">How it works</div>
+    <div class="s-h reveal">Live in your business<br>in <em>two weeks</em></div>
+    <div class="steps reveal">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-tag">Week 1</div>
+        <h3>Connect</h3>
+        <p>Read-only connectors to your CRM, HRIS, finance, and ops tools. No disruption, no migration. Works with what you already have.</p>
+        <div class="step-eg">e.g. HubSpot + Darwinbox + Zoho connected in &lt;30 min</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-tag">Week 2</div>
+        <h3>Map</h3>
+        <p>Aitora builds a living decision graph — linking actions to outcomes across every tool, team, and timestamp in your company.</p>
+        <div class="step-eg">e.g. Pricing change Day 1 → Churn signal Day 73</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-tag">Ongoing</div>
+        <h3>Explain</h3>
+        <p>Ask in plain language. Get a clear answer: what caused it, who influenced it, and exactly what your leadership team should do next.</p>
+        <div class="step-eg">e.g. "Why did Q3 churn increase?" → Root cause + 3 actions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT PREVIEW -->
+<section class="preview-section">
+  <div class="s-wrap">
+    <div class="s-kicker reveal">See it in action</div>
+    <div class="s-h reveal">What Aitora surfaces<br><em>automatically</em></div>
+    <div class="s-sub reveal">This is the kind of clarity Aitora delivers — within days of connecting your tools.</div>
+    <div class="mock reveal">
+      <div class="mock-bar">
+        <div class="m-dot" style="background:#ff5f57"></div>
+        <div class="m-dot" style="background:#febc2e"></div>
+        <div class="m-dot" style="background:#28c840"></div>
+        <div class="mock-title">Aitora — Intelligence Card — Q3 Analysis</div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-card">
+          <div class="mc-top">
+            <div>
+              <div class="mc-t">Decision: Changed ICP targeting criteria</div>
+              <div class="mc-d">Detected via Salesforce + HubSpot · Aug 14, 2024</div>
+            </div>
+            <div class="mc-badge">High impact</div>
+          </div>
+          <div class="imp-label-row">Measured impact — 73 days post-decision</div>
+          <div class="imp-row"><div class="imp-l">Onboarding friction</div><div class="imp-track"><div class="imp-fill fill-r" style="width:78%"></div></div><div class="imp-v v-r">+40%</div></div>
+          <div class="imp-row"><div class="imp-l">30-day churn rate</div><div class="imp-track"><div class="imp-fill fill-r" style="width:45%"></div></div><div class="imp-v v-r">+18%</div></div>
+          <div class="imp-row"><div class="imp-l">Sales cycle length</div><div class="imp-track"><div class="imp-fill fill-a" style="width:35%"></div></div><div class="imp-v v-a">+22d</div></div>
+          <div class="root-box">New ICP segment requires 40% more implementation support. Current onboarding was built for self-serve. Mismatch between segment expectation and product experience is driving early churn.</div>
+          <div class="act-label">Recommended actions</div>
+          <div class="act-item"><div class="act-n">1</div>Revert ICP or create separate onboarding track for new segment</div>
+          <div class="act-item"><div class="act-n">2</div>Add dedicated CSM handoff at Day 3 for high-touch segment</div>
+          <div class="act-item"><div class="act-n">3</div>Realign sales incentives to reflect actual cycle length</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / DESIGN PARTNER -->
+<section class="cta-section" id="apply">
+  <div class="cta-inner">
+    <div class="cta-l reveal">
+      <div class="spots-row">
+        <div class="spot spot-f"></div>
+        <div class="spot spot-f"></div>
+        <div class="spot spot-o"></div>
+        <div class="spot spot-o"></div>
+        <div class="spot spot-o"></div>
+        <div class="spots-txt"><strong>2 of 5 spots</strong> filled</div>
+      </div>
+      <h2>We're building this<br>with <em>5 companies.</em><br>Not for them.</h2>
+      <p>Design partners shape the product from day one — and receive intelligence from week one. This is not a waitlist. It is a working partnership.</p>
+      <div class="benefit-list">
+        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Intelligence live in your business</strong> from week one</div></div>
+        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Direct input into the roadmap</strong> — your problems get built first</div></div>
+        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Founding partner pricing</strong> locked in for the life of your contract</div></div>
+        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Co-authored case study</strong> at launch — your story at the centre</div></div>
+        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Named founding partner</strong> — on our launch page and in funding materials</div></div>
+      </div>
+    </div>
+    <div class="reveal reveal-d1">
+      <div class="form-card">
+        <h3>Apply for a conversation</h3>
+        <p class="f-sub">20 minutes. No deck. No pitch. We ask 5 questions — and tell you honestly if it's a fit.</p>
+        <label class="f-label">Your name</label>
+        <input class="f-input" type="text" placeholder="First and last name">
+        <label class="f-label">Company · Role · Team size</label>
+        <input class="f-input" type="text" placeholder="e.g. Acme — CEO — 280 people">
+        <label class="f-label">Work email</label>
+        <input class="f-input" type="email" placeholder="you@company.com">
+        <label class="f-label">What decision do you wish you understood better?</label>
+        <textarea class="f-input" placeholder="The more specific the better — we'll come prepared."></textarea>
+        <button class="f-submit" onclick="handleApply(this)">Apply for access &rarr;</button>
+        <p class="f-note">We review every application personally. If it's a fit, you'll hear from us within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-h reveal">Common questions</div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>We already have Tableau / Power BI. How is this different?</span><div class="faq-ico">+</div></div><div class="faq-a">BI tools show you what happened. Aitora shows you why — tracing the specific decision, months earlier, that caused what you're seeing now. They're complementary. You keep your dashboards. Aitora is the causal intelligence layer on top.</div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>What data does Aitora need access to?</span><div class="faq-ico">+</div></div><div class="faq-a">Read-only API access to your existing tools — CRM, HRIS, finance, product analytics. We never write to your systems. Data is encrypted in transit and at rest, stored in your region, and never used to train models. Your data stays yours.</div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>How quickly will we see value?</span><div class="faq-ico">+</div></div><div class="faq-a">Design partners typically see their first intelligence output within the first two weeks of connection. Most identify at least one significant previously invisible cause-and-effect chain within 10 days of going live.</div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>What does the design partner commitment look like?</span><div class="faq-ico">+</div></div><div class="faq-a">A paid engagement that covers our time and your data access. A 30-minute fortnightly call to share feedback. Honesty about what is and is not working. In exchange: a product shaped around your business, founding partner pricing, and direct access to the founding team.</div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>How much time will this take from our team to set up?</span><div class="faq-ico">+</div></div><div class="faq-a">Under 30 minutes for most setups. We handle configuration and the initial intelligence mapping. You do not need a data team or technical resource. Onboarding is handled entirely by our founding team — not a support queue.</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Ait<span>o</span>ra</div>
+  <div class="f-links"><a href="#">Privacy</a><a href="#">Security</a><a href="#">Contact</a></div>
+  <div class="f-copy">Founded 2024 · Building in Bengaluru. Thinking about the world. © 2024 Aitora.</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+function lerp(a,b,t){return a+(b-a)*t}
+(function loop(){rx=lerp(rx,mx,.12);ry=lerp(ry,my,.12);curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.faq-q').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';curR.style.transform='translate(-50%,-50%) scale(1.5)'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.transform='translate(-50%,-50%) scale(1)'});
+});
+
+function faq(el){
+  const item=el.parentElement;
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+
+function handleApply(btn){
+  btn.textContent='Application sent — we\'ll be in touch within 24 hours ✓';
+  btn.classList.add('sent');
+}
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.imp-fill').forEach(b=>{const w=b.style.width;b.style.width='0%';setTimeout(()=>b.style.width=w,150);});
+      barObs.unobserve(e.target);
+    }
+  })
+},{threshold:.3});
+document.querySelectorAll('.mock').forEach(el=>barObs.observe(el));
+</script>
+</body>
+</html>
+```
