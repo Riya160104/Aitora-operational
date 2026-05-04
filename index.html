@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
   gtag('config', 'G-6JRKJRTSDR');
 </script>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -82,7 +83,8 @@ h1{
   color:var(--ink);
   opacity:0;animation:rise .6s .15s forwards;
 }
-h1 .hl{color:var(--elegant);font-style:italic}
+/* Hero "why" black color modification */
+h1 .hl{color:#0A0A0A;font-style:italic}
 .hero-desc{
   font-size:1.05rem;color:var(--muted);line-height:1.75;
   max-width:480px;margin-bottom:2.5rem;
@@ -152,10 +154,15 @@ h1 .hl{color:var(--elegant);font-style:italic}
 }
 .stat-item:last-child{border-right:none}
 .stat-item:hover{background:rgba(255,255,255,.03)}
+/* Updated font for numbers in stats band: modern sans-serif (Outfit) with bold weight */
 .stat-n{
-  font-family:'Playfair Display',serif;font-weight:900;
-  font-size:2.6rem;color:var(--white);line-height:1;
-  letter-spacing:-.03em;margin-bottom:.4rem;
+  font-family:'Outfit',sans-serif;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  font-size:2.6rem;
+  line-height:1;
+  margin-bottom:.4rem;
+  color:var(--white);
 }
 .stat-n.gold{color:var(--gold)}
 .stat-l{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.5;max-width:120px;margin:0 auto}
@@ -315,15 +322,40 @@ textarea.f-input{resize:none;height:72px}
 .faq-item.open .faq-q{color:var(--elegant)}
 .faq-item.open .faq-ico{background:var(--elegant);border-color:var(--elegant);color:#fff;transform:rotate(45deg)}
 footer{
-  background:var(--accent);border-top:1px solid rgba(255,255,255,.1);
-  padding:2.5rem 4rem;
-  display:flex;align-items:center;justify-content:space-between;
+  background:var(--accent);
+  border-top:1px solid rgba(255,255,255,.1);
+  padding:2rem 4rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1rem;
 }
 .f-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:rgba(255,255,255,.7)}
 .f-logo span{color:var(--white)}
-.f-links{display:flex;gap:1.5rem}
+.f-links{display:flex;gap:1.5rem;align-items:center}
 .f-links a{font-size:.78rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
 .f-links a:hover{color:rgba(255,255,255,.8)}
+/* Contact number style - visible & clickable */
+.contact-number{
+  font-size:.85rem;
+  background:rgba(255,255,255,.05);
+  padding:0.4rem 0.9rem;
+  border-radius:40px;
+  color:rgba(255,255,255,.9);
+  text-decoration:none;
+  font-weight:500;
+  transition:all .2s;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border:1px solid rgba(255,255,255,.15);
+}
+.contact-number:hover{
+  background:rgba(255,255,255,.15);
+  color:white;
+  border-color:rgba(255,255,255,.3);
+}
 .f-copy{font-size:.72rem;color:rgba(255,255,255,.3)}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
 .reveal.in{opacity:1;transform:none}
@@ -340,8 +372,8 @@ footer{
   .steps::before{display:none}
   .s-wrap{padding:4rem 2rem}
   nav{padding:0 1.5rem}
-  footer{flex-direction:column;gap:1rem;text-align:center}
-  .cta-section{padding:4rem 2rem}
+  footer{flex-direction:column;text-align:center}
+  .f-links{justify-content:center}
 }
 </style>
 </head>
@@ -397,10 +429,10 @@ footer{
 </section>
 
 <div class="stats-band reveal">
-  <div class="stat-item"><div class="stat-n gold">$3.1T</div><div class="stat-l">Lost annually to poor organisational decisions</div><div class="stat-src">McKinsey Global Institute</div></div>
+  <div class="stat-item"><div class="stat-n gold">3.1T</div><div class="stat-l">Lost annually to poor organisational decisions</div><div class="stat-src">McKinsey Global Institute</div></div>
   <div class="stat-item"><div class="stat-n">67%</div><div class="stat-l">Of leaders feel data-rich but still decision-blind</div><div class="stat-src">PwC Global Analytics Survey</div></div>
   <div class="stat-item"><div class="stat-n">73 days</div><div class="stat-l">Average lag between a decision and its business impact</div><div class="stat-src">Aitora Research, 2024</div></div>
-  <div class="stat-item"><div class="stat-n gold">$0</div><div class="stat-l">Tools built for decision intelligence at your company size</div><div class="stat-src">Palantir starts at $5M+</div></div>
+  <div class="stat-item"><div class="stat-n gold">0</div><div class="stat-l">Tools built for decision intelligence at your company size</div><div class="stat-src">Palantir starts at $5M+</div></div>
 </div>
 
 <section class="prob-section">
@@ -473,13 +505,15 @@ footer{
         <h3>Apply for a conversation</h3>
         <p class="f-sub">20 minutes. No deck. No pitch. We ask 5 questions — and tell you honestly if it's a fit.</p>
         <label class="f-label">Your name</label>
-        <input class="f-input" type="text" placeholder="First and last name">
+        <input class="f-input" id="nameInput" type="text" placeholder="First and last name">
         <label class="f-label">Company · Role · Team size</label>
-        <input class="f-input" type="text" placeholder="e.g. Acme — CEO — 280 people">
+        <input class="f-input" id="companyInput" type="text" placeholder="e.g. Acme — CEO — 280 people">
         <label class="f-label">Work email</label>
-        <input class="f-input" type="email" placeholder="you@company.com">
+        <input class="f-input" id="emailInput" type="email" placeholder="you@company.com">
+        <label class="f-label">Phone number</label>
+        <input class="f-input" id="phoneInput" type="tel" placeholder="Your contact number">
         <label class="f-label">What decision do you wish you understood better?</label>
-        <textarea class="f-input" placeholder="The more specific the better — we'll come prepared."></textarea>
+        <textarea class="f-input" id="decisionInput" placeholder="The more specific the better — we'll come prepared."></textarea>
         <button class="f-submit" onclick="handleApply(this)">Apply for access &rarr;</button>
         <p class="f-note">We review every application personally. If it's a fit, you'll hear from us within 24 hours.</p>
       </div>
@@ -500,7 +534,13 @@ footer{
 
 <footer>
   <div class="f-logo">Ait<span>o</span>ra</div>
-  <div class="f-links"><a href="#">Privacy</a><a href="#">Security</a><a href="#">Contact</a></div>
+  <div class="f-links">
+    <a href="#">Privacy</a>
+    <a href="#">Security</a>
+    <a href="#">Contact</a>
+    <!-- Visible clickable phone number added here -->
+    <a href="tel:8884104236" class="contact-number">📞 8884104236</a>
+  </div>
   <div class="f-copy">Founded 2024 · Building in Bengaluru. Thinking about the world. © 2024 Aitora.</div>
 </footer>
 
@@ -523,20 +563,17 @@ function faq(el){
 }
 
 function handleApply(btn){
-  // Get form values
-  var formCard = btn.closest('.form-card');
-  var inputs = formCard.querySelectorAll('.f-input');
-  var name = inputs[0].value.trim();
-  var companyRole = inputs[1].value.trim();
-  var email = inputs[2].value.trim();
-  var decision = inputs[3].value.trim();
+  var name = document.getElementById('nameInput').value.trim();
+  var companyRole = document.getElementById('companyInput').value.trim();
+  var email = document.getElementById('emailInput').value.trim();
+  var phone = document.getElementById('phoneInput').value.trim();
+  var decision = document.getElementById('decisionInput').value.trim();
 
   if(!name || !email) {
     alert('Please fill at least your name and email.');
     return;
   }
 
-  // Send to Formspree — REPLACE WITH YOUR ACTUAL ENDPOINT
   fetch('https://formspree.io/f/xnjwqjbe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -544,14 +581,18 @@ function handleApply(btn){
       name: name,
       companyRole: companyRole,
       email: email,
+      phone: phone,
       decision: decision
     })
   }).then(function(response) {
     if(response.ok) {
       btn.textContent = 'Application sent — we\'ll be in touch within 24 hours ✓';
       btn.classList.add('sent');
-      // Clear form fields
-      inputs.forEach(function(inp) { inp.value = ''; });
+      document.getElementById('nameInput').value = '';
+      document.getElementById('companyInput').value = '';
+      document.getElementById('emailInput').value = '';
+      document.getElementById('phoneInput').value = '';
+      document.getElementById('decisionInput').value = '';
     } else {
       alert('Something went wrong. Please try again.');
     }
@@ -559,7 +600,6 @@ function handleApply(btn){
     alert('Error: ' + error.message);
   });
 
-  // Track in GA4 (if needed)
   if(typeof gtag === 'function') {
     gtag('event', 'form_submit', {
       event_category: 'conversion',
