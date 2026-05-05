@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@
   --bg3:#EEEEEE;
   --accent:#0A0A0A;
   --accent2:#333333;
-  --blue:#4169E1;      /* new bright blue */
+  --blue:#0057FF;      /* new bright blue */
   --paper:#F2EFE8;
   --paper2:#E8E4DA;
   --white:#FFFFFF;
@@ -259,6 +260,13 @@ h1 .hl{color:var(--blue);font-style:italic}
 .cta-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:5rem;align-items:start}
 .cta-l h2{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:1rem;color:var(--ink)}
 .cta-l h2 em{font-style:italic;color:var(--blue)}
+/* New rule to style the number 5 with stats font */
+.cta-l h2 em .stat-number {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-style: normal;
+}
 .cta-l p{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:2rem;max-width:420px}
 .spots-row{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem}
 .spot{width:10px;height:10px;border-radius:50%}
@@ -478,7 +486,7 @@ footer{
     <div class="s-sub reveal">This is the kind of clarity Aitora delivers within days of connecting your tools.</div>
     <div class="mock reveal">
       <div class="mock-bar"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#febc2e"></div><div class="m-dot" style="background:#28c840"></div><div class="mock-title">Aitora — Intelligence Card — Q3 Analysis</div></div>
-      <div class="mock-body"><div class="mock-card"><div class="mc-top"><div><div class="mc-t">Decision: Changed ICP targeting criteria</div><div class="mc-d">Detected via Salesforce + HubSpot · Aug 14, 2026</div></div><div class="mc-badge">High impact</div></div><div class="imp-label-row">Measured impact 73 days post decision</div><div class="imp-row"><div class="imp-l">Onboarding friction</div><div class="imp-track"><div class="imp-fill fill-r" style="width:78%"></div></div><div class="imp-v v-r">+40%</div></div><div class="imp-row"><div class="imp-l">30 day churn rate</div><div class="imp-track"><div class="imp-fill fill-r" style="width:45%"></div></div><div class="imp-v v-r">+18%</div></div><div class="imp-row"><div class="imp-l">Sales cycle length</div><div class="imp-track"><div class="imp-fill fill-a" style="width:35%"></div></div><div class="imp-v v-a">+22d</div></div><div class="root-box">New ICP segment requires 40% more implementation support. Current onboarding was built for self serve. Mismatch between segment expectation and product experience is driving early churn.</div><div class="act-label">Recommended actions</div><div class="act-item"><div class="act-n">1</div>Revert ICP or create separate onboarding track for new segment</div><div class="act-item"><div class="act-n">2</div>Add dedicated CSM handoff at Day 3 for high-touch segment</div><div class="act-item"><div class="act-n">3</div>Realign sales incentives to reflect actual cycle length</div></div></div>
+      <div class="mock-body"><div class="mock-card"><div class="mc-top"><div><div class="mc-t">Decision: Changed ICP targeting criteria</div><div class="mc-d">Detected via Salesforce + HubSpot · April 14, 2026</div></div><div class="mc-badge">High impact</div></div><div class="imp-label-row">Measured impact 73 days post decision</div><div class="imp-row"><div class="imp-l">Onboarding friction</div><div class="imp-track"><div class="imp-fill fill-r" style="width:78%"></div></div><div class="imp-v v-r">+40%</div></div><div class="imp-row"><div class="imp-l">30 day churn rate</div><div class="imp-track"><div class="imp-fill fill-r" style="width:45%"></div></div><div class="imp-v v-r">+18%</div></div><div class="imp-row"><div class="imp-l">Sales cycle length</div><div class="imp-track"><div class="imp-fill fill-a" style="width:35%"></div></div><div class="imp-v v-a">+22d</div></div><div class="root-box">New ICP segment requires 40% more implementation support. Current onboarding was built for self serve. Mismatch between segment expectation and product experience is driving early churn.</div><div class="act-label">Recommended actions</div><div class="act-item"><div class="act-n">1</div>Revert ICP or create separate onboarding track for new segment</div><div class="act-item"><div class="act-n">2</div>Add dedicated CSM handoff at Day 3 for high-touch segment</div><div class="act-item"><div class="act-n">3</div>Realign sales incentives to reflect actual cycle length</div></div></div>
     </div>
   </div>
 </section>
@@ -487,7 +495,8 @@ footer{
   <div class="cta-inner">
     <div class="cta-l reveal">
       <div class="spots-row"><div class="spot spot-f"></div><div class="spot spot-f"></div><div class="spot spot-o"></div><div class="spot spot-o"></div><div class="spot spot-o"></div><div class="spots-txt"><strong>2 of 5 spots</strong> filled</div></div>
-      <h2>We're building this<br>with <em>5 companies.</em><br>Not for them.</h2>
+      <!-- Modified line: <span class="stat-number">5</span> for custom font -->
+      <h2>We're building this<br>with <em><span class="stat-number">5</span> companies.</em><br>Not for them.</h2>
       <p>Design partners shape the product from day one and receive intelligence from week one. This is not a waitlist. It is a working partnership.</p>
       <div class="benefit-list">
         <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Intelligence live in your business</strong> from week one</div></div>
