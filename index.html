@@ -2,631 +2,726 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aitora - Operational Intelligence</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aitora — Operational Intelligence for Series B SaaS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRKJRTSDR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6JRKJRTSDR');
-</script>
+    :root {
+      --bg: #FFFFFF;
+      --bg-off: #F8FAFE;
+      --accent: #0A0A0A;
+      --accent2: #1E293B;
+      --blue: #0057FF;
+      --blue-light: rgba(0, 87, 255, 0.08);
+      --ink: #0F172A;
+      --muted: #5A6B7F;
+      --border: #E9EDF2;
+      --border-radius-card: 28px;
+      --border-radius-sm: 16px;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#FFFFFF;
-  --bg2:#F5F5F5;
-  --bg3:#EEEEEE;
-  --accent:#0A0A0A;
-  --accent2:#333333;
-  --blue:#0057FF;      /* new bright blue */
-  --paper:#F2EFE8;
-  --paper2:#E8E4DA;
-  --white:#FFFFFF;
-  --ink:#0A0A0A;
-  --muted:rgba(0,0,0,0.5);
-  --line:rgba(0,0,0,0.08);
-  --line2:rgba(0,0,0,0.15);
-  --r:8px;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;cursor:default}
-.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,background .2s;mix-blend-mode:difference}
-.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(0,0,0,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .25s cubic-bezier(.25,.46,.45,.94)}
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 4rem;height:64px;
-  background:rgba(255,255,255,.9);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);
-}
-.logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;letter-spacing:-.02em;color:var(--ink)}
-.nav-right{display:flex;align-items:center;gap:1.5rem}
-.nav-badge{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);background:rgba(0,87,255,.08);border:1px solid rgba(0,87,255,.2);padding:.3rem .8rem;border-radius:100px}
-.nav-cta{background:var(--accent);color:var(--white);font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.04em;padding:.55rem 1.4rem;border-radius:6px;border:none;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
-.nav-cta:hover{background:var(--accent2);transform:translateY(-1px)}
-.hero{
-  min-height:100vh;display:grid;
-  grid-template-columns:1fr 440px;
-  align-items:center;gap:4rem;
-  padding:8rem 4rem 5rem;
-  position:relative;overflow:hidden;
-  max-width:1300px;margin:0 auto;
-  background:var(--bg);
-}
-.hero::before{
-  content:'';position:absolute;
-  width:800px;height:800px;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,0,0,.04) 0%,transparent 65%);
-  right:-200px;top:-200px;pointer-events:none;
-}
-.hero-kicker{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--blue);margin-bottom:1.75rem;
-  opacity:0;animation:rise .5s .05s forwards;
-}
-.hero-kicker::before{content:'';width:24px;height:1px;background:var(--blue)}
-h1{
-  font-family:'Playfair Display',serif;font-weight:900;
-  font-size:clamp(3rem,5vw,5rem);line-height:1.0;
-  letter-spacing:-.03em;margin-bottom:1.5rem;
-  color:var(--ink);
-  opacity:0;animation:rise .6s .15s forwards;
-}
-h1 .hl{color:var(--blue);font-style:italic}
-.hero-desc{
-  font-size:1.05rem;color:var(--muted);line-height:1.75;
-  max-width:480px;margin-bottom:2.5rem;
-  opacity:0;animation:rise .6s .25s forwards;
-}
-.hero-actions{
-  display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
-  opacity:0;animation:rise .6s .35s forwards;
-}
-.btn-primary{
-  background:var(--accent);color:var(--white);
-  font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:600;
-  padding:.85rem 2.25rem;border-radius:7px;border:none;cursor:pointer;
-  transition:all .2s;text-decoration:none;display:inline-block;
-  position:relative;overflow:hidden;
-}
-.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .2s}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.15)}
-.btn-primary:hover::after{opacity:1}
-.btn-ghost{
-  font-size:.85rem;color:var(--muted);text-decoration:none;
-  display:inline-flex;align-items:center;gap:.4rem;
-  border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:2px;
-  transition:color .2s,border-color .2s;
-}
-.btn-ghost:hover{color:var(--ink);border-color:rgba(0,0,0,.4)}
-.hero-micro{font-size:.72rem;color:rgba(0,0,0,.35);margin-top:1rem;opacity:0;animation:rise .5s .45s forwards}
-.chain-visual{
-  opacity:0;animation:rise .7s .4s forwards;
-  display:flex;flex-direction:column;gap:0;position:relative;
-}
-.cv-node{
-  background:var(--bg);border:1px solid var(--line2);
-  border-radius:12px;padding:1.1rem 1.25rem;position:relative;
-  transition:border-color .3s;
-}
-.cv-node:hover{border-color:rgba(0,0,0,.4)}
-.cv-node.triggered{border-color:var(--blue);background:rgba(0,87,255,.02)}
-.cv-tag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
-.cv-txt{font-size:.9rem;color:var(--ink);line-height:1.4;font-weight:400}
-.cv-meta{font-size:.7rem;color:rgba(0,0,0,.4);margin-top:.3rem}
-.cv-arrow{
-  display:flex;align-items:center;justify-content:center;
-  padding:.4rem 0;gap:.5rem;
-  font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
-  color:rgba(0,0,0,.35);
-}
-.cv-arrow::before,.cv-arrow::after{content:'';flex:1;height:1px;background:var(--line)}
-.cv-badge{
-  position:absolute;top:.75rem;right:.75rem;
-  font-size:.58rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-  padding:.2rem .6rem;border-radius:100px;
-}
-.b-warn{background:rgba(0,87,255,.08);color:var(--blue);border:1px solid rgba(0,87,255,.2)}
-.b-ok{background:rgba(0,87,255,.12);color:var(--blue);border:1px solid rgba(0,87,255,.2)}
-.pulse-line{width:2px;height:32px;background:linear-gradient(var(--blue),transparent);margin:0 auto;position:relative;animation:pulse-down 2s ease-in-out infinite}
-@keyframes pulse-down{0%,100%{opacity:.3}50%{opacity:1}}
-.stats-band{
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  background:var(--accent);
-  display:grid;grid-template-columns:repeat(4,1fr);
-}
-.stat-item{
-  padding:2.25rem 2rem;border-right:1px solid rgba(255,255,255,.1);
-  text-align:center;position:relative;overflow:hidden;
-  transition:background .3s;
-}
-.stat-item:last-child{border-right:none}
-.stat-item:hover{background:rgba(255,255,255,.03)}
-.stat-n{
-  font-family:'Outfit',sans-serif;
-  font-weight:700;
-  letter-spacing:-0.02em;
-  font-size:2.6rem;
-  line-height:1;
-  margin-bottom:.4rem;
-  color:var(--white);
-}
-.stat-n.blue{color:var(--blue)}
-.stat-l{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.5;max-width:120px;margin:0 auto}
-.stat-src{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:.35rem}
-.s-wrap{max-width:1200px;margin:0 auto;padding:6rem 4rem}
-.s-kicker{font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.75rem}
-.s-h{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-.025em;line-height:1.1;color:var(--ink)}
-.s-h em{font-style:italic;color:var(--blue)}
-.s-sub{font-size:.95rem;color:var(--muted);line-height:1.75;margin-top:.75rem;max-width:520px}
-.prob-section{background:var(--bg)}
-.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:3rem}
-.prob-card{background:var(--bg2);padding:2rem 1.75rem;transition:background .25s;position:relative}
-.prob-card:hover{background:var(--bg3)}
-.prob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--accent2))}
-.prob-icon{font-size:1.5rem;margin-bottom:1.1rem;display:block;color:var(--blue)}
-.prob-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;letter-spacing:-.01em}
-.prob-card p{font-size:.83rem;color:var(--muted);line-height:1.65}
-.proof-bar{background:var(--accent);padding:1.5rem 4rem;text-align:center}
-.proof-bar p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:rgba(255,255,255,.9)}
-.proof-bar strong{font-style:normal;color:var(--white)}
-.compare-section{background:var(--bg2)}
-.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
-.cc{border-radius:14px;padding:2rem;border:1px solid var(--line2)}
-.cc.them{background:var(--white)}
-.cc.us{background:var(--accent);border-color:var(--accent)}
-.cc-head{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem}
-.cc.them .cc-head{color:rgba(0,0,0,.35)}
-.cc.us .cc-head{color:rgba(255,255,255,.7)}
-.cc-brand{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:1.25rem}
-.cc.them .cc-brand{color:rgba(0,0,0,.3)}
-.cc.us .cc-brand{color:var(--white)}
-.cc-row{display:flex;align-items:flex-start;gap:.65rem;margin-bottom:.75rem}
-.cc-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:.45rem}
-.cc.them .cc-dot{background:rgba(0,0,0,.15)}
-.cc.us .cc-dot{background:rgba(255,255,255,.5)}
-.cc-row-t{font-size:.85rem;line-height:1.5}
-.cc.them .cc-row-t{
-  color:var(--blue);
-  text-decoration:line-through;
-  text-decoration-color:rgba(0,0,0,.2);
-}
-.cc.us .cc-row-t{color:rgba(255,255,255,.9)}
-.cc.us .cc-row-t em{color:var(--blue); font-style:italic}
-.how-section{background:var(--bg)}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:3.5rem;position:relative}
-.steps::before{content:'';position:absolute;top:28px;left:calc(100%/6);right:calc(100%/6);height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);z-index:0}
-.step-item{text-align:center;padding:0 2rem;position:relative;z-index:1}
-.step-num{
-  width:56px;height:56px;border-radius:50%;
-  background:var(--bg2);border:1px solid var(--line2);
-  display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;
-  font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--blue);
-  transition:all .25s;
-}
-.step-item:hover .step-num{background:var(--blue);border-color:var(--blue);color:var(--white)}
-.step-tag{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--blue);background:rgba(0,87,255,.08);padding:.2rem .6rem;border-radius:100px;display:inline-block;margin-bottom:.75rem}
-.step-item h3{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:.45rem}
-.step-item p{font-size:.8rem;color:var(--muted);line-height:1.65}
-.step-eg{font-size:.72rem;color:var(--blue);background:rgba(0,87,255,.05);padding:.3rem .75rem;border-radius:4px;display:inline-block;margin-top:.6rem;opacity:0;transition:opacity .2s}
-.step-item:hover .step-eg{opacity:1}
-.preview-section{background:var(--accent)}
-.preview-section .s-h{color:var(--white)}
-.preview-section .s-sub{color:rgba(255,255,255,.6)}
-.preview-section .s-kicker{color:var(--blue)}
-.preview-section em{color:var(--blue);}
-.mock{
-  background:#1A1A1A;border:1px solid rgba(255,255,255,.1);
-  border-radius:16px;overflow:hidden;margin-top:3rem;
-  box-shadow:0 32px 80px rgba(0,0,0,.3);
-}
-.mock-bar{
-  background:#222;border-bottom:1px solid rgba(255,255,255,.08);
-  padding:.85rem 1.25rem;display:flex;align-items:center;gap:.5rem;
-}
-.m-dot{width:10px;height:10px;border-radius:50%}
-.mock-title{font-size:.78rem;color:rgba(255,255,255,.5);margin-left:.5rem;font-weight:500}
-.mock-body{padding:1.75rem}
-.mock-card{border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:1.5rem;background:#252525}
-.mc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem}
-.mc-t{font-size:.95rem;font-weight:600;color:#fff}
-.mc-d{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:.25rem}
-.mc-badge{font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px;background:rgba(0,87,255,.25);color:var(--blue);border:1px solid rgba(0,87,255,.35);flex-shrink:0}
-.imp-label-row{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.75rem}
-.imp-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem}
-.imp-l{font-size:.78rem;color:rgba(255,255,255,.6);width:170px;flex-shrink:0}
-.imp-track{flex:1;background:rgba(255,255,255,.08);border-radius:3px;height:5px;overflow:hidden}
-.imp-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-.fill-r{background:linear-gradient(90deg,#C37D5A,#E6B89A)}
-.fill-a{background:linear-gradient(90deg,#DBB87B,#F3DBA5)}
-.imp-v{font-size:.75rem;font-weight:700;width:36px;text-align:right}
-.v-r{color:#E6B89A}.v-a{color:#F3DBA5}
-.root-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:1rem 1.1rem;font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.65;margin:1.1rem 0;border-left:3px solid var(--blue)}
-.act-label{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:.85rem 0 .5rem}
-.act-item{display:flex;align-items:center;gap:.65rem;padding:.6rem .85rem;background:rgba(255,255,255,.04);border-radius:7px;margin-bottom:.4rem;font-size:.8rem;color:rgba(255,255,255,.8)}
-.act-n{width:20px;height:20px;border-radius:50%;background:var(--white);color:var(--blue);font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cta-section{
-  background:var(--bg);
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:6rem 4rem;
-}
-.cta-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:5rem;align-items:start}
-.cta-l h2{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:1rem;color:var(--ink)}
-.cta-l h2 em{font-style:italic;color:var(--blue)}
-/* New rule to style the number 5 with stats font */
-.cta-l h2 em .stat-number {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  font-style: normal;
-}
-.cta-l p{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:2rem;max-width:420px}
-.spots-row{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem}
-.spot{width:10px;height:10px;border-radius:50%}
-.spot-f{background:var(--blue)}
-.spot-o{background:rgba(0,0,0,.12)}
-.spots-txt{font-size:.78rem;color:var(--muted)}
-.spots-txt strong{color:var(--ink)}
-.benefit-list{display:flex;flex-direction:column;gap:.75rem}
-.benefit{display:flex;align-items:flex-start;gap:.7rem}
-.b-icon{
-  width:20px;height:20px;border-radius:50%;background:rgba(0,87,255,.12);
-  flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  font-size:.65rem;color:var(--blue);font-weight:700;margin-top:1px;
-}
-.b-txt{font-size:.85rem;color:rgba(0,0,0,.7);line-height:1.5}
-.b-txt strong{color:var(--ink);font-weight:500}
-.form-card{
-  background:var(--bg2);border:1px solid var(--line2);
-  border-radius:16px;padding:2.25rem;
-}
-.form-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:.3rem}
-.form-card .f-sub{font-size:.78rem;color:var(--muted);margin-bottom:1.75rem;line-height:1.5}
-.f-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.4rem}
-.f-input{
-  width:100%;background:var(--white);border:1px solid var(--line2);
-  border-radius:7px;padding:.7rem .95rem;font-family:'Outfit',sans-serif;
-  font-size:.85rem;color:var(--ink);outline:none;transition:border-color .2s;
-  margin-bottom:1rem;
-}
-.f-input::placeholder{color:rgba(0,0,0,.25)}
-.f-input:focus{border-color:rgba(0,0,0,.5)}
-textarea.f-input{resize:none;height:72px}
-.f-submit{
-  width:100%;padding:.85rem;background:var(--accent);color:var(--white);
-  border:none;border-radius:7px;font-family:'Outfit',sans-serif;
-  font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;
-  letter-spacing:.03em;position:relative;overflow:hidden;
-}
-.f-submit:hover{background:var(--accent2)}
-.f-submit.sent{background:var(--blue);pointer-events:none}
-.f-note{font-size:.68rem;color:rgba(0,0,0,.3);text-align:center;margin-top:.75rem;line-height:1.5}
-.faq-section{background:var(--bg2);padding:5rem 4rem}
-.faq-inner{max-width:700px;margin:0 auto}
-.faq-h{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;letter-spacing:-.02em;margin-bottom:2.5rem;text-align:center;color:var(--ink)}
-.faq-item{border-bottom:1px solid var(--line);overflow:hidden}
-.faq-q{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.25rem 0;cursor:pointer;font-size:.92rem;font-weight:400;
-  color:rgba(0,0,0,.7);gap:1rem;transition:color .2s;
-  user-select:none;
-}
-.faq-q:hover{color:var(--ink)}
-.faq-ico{
-  width:22px;height:22px;border-radius:50%;border:1px solid var(--line2);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  font-size:.9rem;color:var(--muted);transition:all .25s;
-}
-.faq-a{display:none;padding:0 0 1.25rem;font-size:.83rem;color:var(--muted);line-height:1.75}
-.faq-item.open .faq-a{display:block}
-.faq-item.open .faq-q{color:var(--blue)}
-.faq-item.open .faq-ico{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(45deg)}
-footer{
-  background:var(--accent);
-  border-top:1px solid rgba(255,255,255,.1);
-  padding:2rem 4rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:1rem;
-}
-.f-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:rgba(255,255,255,.7)}
-.f-links{display:flex;gap:1.5rem;align-items:center}
-.f-links a{font-size:.78rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
-.f-links a:hover{color:rgba(255,255,255,.8)}
-.contact-number{
-  font-size:.85rem;
-  background:rgba(255,255,255,.05);
-  padding:0.4rem 0.9rem;
-  border-radius:40px;
-  color:rgba(255,255,255,.9);
-  text-decoration:none;
-  font-weight:500;
-  transition:all .2s;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  border:1px solid rgba(255,255,255,.15);
-}
-.contact-number:hover{
-  background:rgba(255,255,255,.15);
-  color:white;
-  border-color:rgba(255,255,255,.3);
-}
-.f-copy{font-size:.72rem;color:rgba(255,255,255,.3)}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
-.reveal.in{opacity:1;transform:none}
-.reveal-d1{transition-delay:.1s}
-.reveal-d2{transition-delay:.2s}
-.reveal-d3{transition-delay:.3s}
-@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:960px){
-  .hero{grid-template-columns:1fr;padding:7rem 2rem 4rem}
-  .chain-visual{display:none}
-  .stats-band{grid-template-columns:repeat(2,1fr)}
-  .stat-item:nth-child(2){border-right:none}
-  .prob-grid,.compare-grid,.steps,.cta-inner{grid-template-columns:1fr}
-  .steps::before{display:none}
-  .s-wrap{padding:4rem 2rem}
-  nav{padding:0 1.5rem}
-  footer{flex-direction:column;text-align:center}
-  .f-links{justify-content:center}
-}
-</style>
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* custom cursor - visible blue */
+    .cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #0057FF;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s, background 0.2s;
+      box-shadow: 0 0 4px rgba(0,87,255,0.5);
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid #0057FF;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 0 6px rgba(0,87,255,0.2);
+    }
+    a, button, .card, .step, .faq-question, .nav-links a, .nav-cta, .btn-primary {
+      cursor: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent2); }
+
+    /* buttons */
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.85rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+    }
+
+    /* Hero split — cleaner */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 5rem 0 3rem;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .hero-bullets {
+      list-style: none;
+      margin: 1rem 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .hero-bullets li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+    }
+    .hero-bullets li::before {
+      content: "✓";
+      color: var(--blue);
+      font-weight: bold;
+    }
+    .hero-micro {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    /* clean graphic card */
+    .graphic-card {
+      background: var(--bg-off);
+      border-radius: var(--border-radius-card);
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .graphic-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 32px -16px rgba(0,0,0,0.1);
+    }
+    .graphic-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .graphic-header span { color: var(--blue); }
+    svg { width: 100%; height: auto; display: block; }
+
+    /* stats band */
+    .stats-band {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--accent);
+      border-radius: 20px;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+    .stat-item {
+      padding: 1.5rem 0.5rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: rgba(255,255,255,0.03); }
+    .stat-n {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: white;
+      margin-bottom: 0.3rem;
+    }
+    .stat-n.blue { color: var(--blue); }
+    .stat-l { font-size: 0.65rem; color: rgba(255,255,255,0.7); max-width: 130px; margin: 0 auto; }
+    .stat-src { font-size: 0.5rem; color: rgba(255,255,255,0.4); margin-top: 0.2rem; }
+
+    /* section titles */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* 3 cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .card {
+      background: var(--bg-off);
+      padding: 1.2rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -12px rgba(0,0,0,0.08); border-color: var(--blue); }
+    .card-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .card p { font-size: 0.75rem; color: var(--muted); line-height: 1.4; }
+
+    /* comparison table */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      background: var(--bg-off);
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+    .compare-col h4 { font-size: 0.9rem; margin-bottom: 0.8rem; font-weight: 700; }
+    .compare-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.8rem;
+      align-items: flex-start;
+    }
+    .compare-dot { width: 5px; height: 5px; background: #CBD5E1; border-radius: 50%; margin-top: 0.4rem; flex-shrink: 0; }
+    .right .compare-dot { background: var(--blue); }
+    .right .compare-text { color: var(--ink); font-weight: 500; }
+
+    /* steps */
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .step {
+      flex: 1;
+      background: var(--bg-off);
+      padding: 1.2rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .step:hover { transform: translateY(-4px); border-color: var(--blue); }
+    .step-badge {
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 40px;
+      display: inline-block;
+      margin-bottom: 0.6rem;
+    }
+    .step h3 { font-size: 1rem; margin-bottom: 0.3rem; font-weight: 600; }
+    .step p { font-size: 0.75rem; color: var(--muted); }
+    .step-note { font-size: 0.7rem; color: var(--blue); margin-top: 0.5rem; }
+
+    /* mock intelligence card */
+    .mock-card {
+      background: var(--accent);
+      border-radius: 20px;
+      padding: 1.2rem;
+      color: white;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+    .illustrative {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: rgba(255,255,255,0.12);
+      font-size: 0.55rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 20px;
+    }
+    .mock-header { display: flex; justify-content: space-between; margin-bottom: 0.8rem; flex-wrap: wrap; }
+    .mock-decision h4 { font-size: 0.85rem; font-weight: 600; }
+    .mock-decision p { font-size: 0.6rem; opacity: 0.6; margin-top: 0.2rem; }
+    .impact-row { display: flex; justify-content: space-between; margin: 0.4rem 0; font-size: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.3rem; }
+    .impact-value { font-weight: 600; color: #FFB347; }
+    .explanation { background: rgba(255,255,255,0.05); padding: 0.6rem; border-radius: 12px; margin: 0.8rem 0; font-size: 0.7rem; }
+    .action-item { display: flex; gap: 0.4rem; font-size: 0.7rem; margin-bottom: 0.4rem; }
+
+    /* partner card */
+    .partner-card {
+      background: var(--bg-off);
+      border-radius: 24px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+    .partner-badge {
+      background: var(--blue-light);
+      color: var(--blue);
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+    .partner-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+      margin: 1rem 0;
+      list-style: none;
+    }
+    .partner-list li { width: 45%; text-align: left; font-size: 0.75rem; display: flex; gap: 0.4rem; align-items: center; }
+    .partner-list li::before { content: "✓"; color: var(--blue); font-weight: bold; }
+
+    /* form */
+    .form-card {
+      background: var(--bg-off);
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+    .form-group { margin-bottom: 0.8rem; }
+    label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 0.2rem; }
+    input, textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+    }
+    .form-note { font-size: 0.65rem; color: var(--muted); text-align: center; margin-top: 0.8rem; }
+
+    /* faq */
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 0.8rem 0;
+    }
+    .faq-question {
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+    .faq-answer {
+      display: none;
+      padding-top: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .faq-item.open .faq-answer { display: block; }
+
+    /* footer */
+    footer {
+      background: var(--accent);
+      color: rgba(255,255,255,0.6);
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.7rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .stats-band { grid-template-columns: repeat(2,1fr); }
+      .cards-grid { grid-template-columns: 1fr; }
+      .steps { flex-direction: column; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .partner-list li { width: 100%; }
+      .nav-links { display: none; }
+      .cursor, .cursor-ring { display: none; }
+      body { cursor: auto; }
+      a, button, .card, .step, .faq-question { cursor: pointer; }
+    }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+  </style>
 </head>
 <body>
 
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="curR"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <nav>
-  <div class="logo">Aitora</div>
-  <div class="nav-right">
-    <div class="nav-badge">Early Access Open</div>
-    <a href="#apply" class="nav-cta">Apply 3 spots left</a>
+  <div class="nav-inner">
+    <div class="logo">Aitora</div>
+    <div class="nav-links">
+      <a href="#product">Product</a>
+      <a href="#use-cases">Use Cases</a>
+      <a href="#about">About Us</a>
+    </div>
+    <a href="#apply" class="nav-cta">Get started →</a>
   </div>
 </nav>
 
-<section style="background:var(--bg);padding-top:0">
-<div class="hero">
-  <div>
-    <div class="hero-kicker">Operational Intelligence for Mid Market</div>
-    <h1>Your data already knows<br><span class="hl">why</span> your business works.</h1>
-    <p class="hero-desc">Aitora connects decisions to outcomes across your company giving leadership the intelligence layer it's been missing.</p>
-    <div class="hero-actions">
-      <a href="#apply" class="btn-primary">Apply to be a founding design partner &rarr;</a>
-      <a href="#how" class="btn-ghost">See how it works &darr;</a>
+<main>
+  <div class="container">
+    <!-- Hero Section — clean and short -->
+    <div class="hero reveal" id="product">
+      <div>
+        <h1>Operational intelligence for Series B SaaS</h1>
+        <div class="hero-sub">For 200–500 person SaaS teams. Connect decisions to revenue, churn, and efficiency in days, not quarters.</div>
+        <ul class="hero-bullets">
+          <li>Works with your existing CRM, HRIS, finance & ops tools</li>
+          <li>No migration, no analyst, no 6‑month project</li>
+          <li>First decision trace in 14 days or we pause & fix</li>
+        </ul>
+        <a href="#apply" class="btn-primary">Apply to be a founding design partner →</a>
+        <div class="hero-micro">3 of 5 spots · ₹1,00,000/month for 2 departments · 1 hour/week</div>
+      </div>
+      <div class="graphic-card">
+        <div class="graphic-header"><span>LIVE CONNECTIONS</span><span>REAL‑TIME INSIGHTS</span></div>
+        <!-- Clean SVG diagram — text placed below circles, no overlap -->
+        <svg viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0057FF"/>
+              <stop offset="100%" stop-color="#3B82F6"/>
+            </linearGradient>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+              <feMerge>
+                <feMergeNode in="offsetblur" result="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <!-- Central hub -->
+          <circle cx="210" cy="160" r="22" fill="url(#grad1)" filter="url(#glow)"/>
+          <circle cx="210" cy="160" r="8" fill="white"/>
+          <!-- Connection lines -->
+          <line x1="210" y1="160" x2="80" y2="80" stroke="#0057FF" stroke-width="2" stroke-dasharray="5 3" opacity="0.7"/>
+          <line x1="210" y1="160" x2="210" y2="75" stroke="#0057FF" stroke-width="2" stroke-dasharray="5 3" opacity="0.7"/>
+          <line x1="210" y1="160" x2="330" y2="90" stroke="#0057FF" stroke-width="2" stroke-dasharray="5 3" opacity="0.7"/>
+          <line x1="210" y1="160" x2="90" y2="250" stroke="#0057FF" stroke-width="2" stroke-dasharray="5 3" opacity="0.7"/>
+          <line x1="210" y1="160" x2="310" y2="260" stroke="#0057FF" stroke-width="2" stroke-dasharray="5 3" opacity="0.7"/>
+          <!-- Department nodes (circles) + text below -->
+          <g>
+            <circle cx="80" cy="80" r="16" fill="white" stroke="#0057FF" stroke-width="2"/>
+            <text x="80" y="112" text-anchor="middle" font-family="Inter" font-weight="600" font-size="10" fill="#0A0A0A">Sales</text>
+            <text x="80" y="125" text-anchor="middle" font-size="7" fill="#0057FF">● Live</text>
+          </g>
+          <g>
+            <circle cx="210" cy="75" r="16" fill="white" stroke="#0057FF" stroke-width="2"/>
+            <text x="210" y="40" text-anchor="middle" font-family="Inter" font-weight="600" font-size="10" fill="#0A0A0A">Finance</text>
+            <text x="210" y="53" text-anchor="middle" font-size="7" fill="#0057FF">● Live</text>
+          </g>
+          <g>
+            <circle cx="330" cy="90" r="16" fill="white" stroke="#0057FF" stroke-width="2"/>
+            <text x="330" y="122" text-anchor="middle" font-family="Inter" font-weight="600" font-size="10" fill="#0A0A0A">Product</text>
+            <text x="330" y="135" text-anchor="middle" font-size="7" fill="#6B7280">Connect</text>
+          </g>
+          <g>
+            <circle cx="90" cy="250" r="16" fill="white" stroke="#0057FF" stroke-width="2"/>
+            <text x="90" y="282" text-anchor="middle" font-family="Inter" font-weight="600" font-size="10" fill="#0A0A0A">Operations</text>
+            <text x="90" y="295" text-anchor="middle" font-size="7" fill="#6B7280">Connect</text>
+          </g>
+          <g>
+            <circle cx="310" cy="260" r="16" fill="white" stroke="#0057FF" stroke-width="2"/>
+            <text x="310" y="292" text-anchor="middle" font-family="Inter" font-weight="600" font-size="10" fill="#0A0A0A">HR</text>
+            <text x="310" y="305" text-anchor="middle" font-size="7" fill="#6B7280">Connect</text>
+          </g>
+        </svg>
+      </div>
     </div>
-    <p class="hero-micro">3 of 5 spots remaining.</p>
-  </div>
-  <div class="chain-visual">
-    <div class="cv-node">
-      <div class="cv-tag">Decision · Sales · Jan 14</div>
-      <div class="cv-txt">Changed ICP targeting criteria in GTM motion</div>
-      <div class="cv-meta">CEO + VP Sales · Logged via Salesforce</div>
-    </div>
-    <div class="pulse-line"></div>
-    <div class="cv-arrow">73 days of invisible impact</div>
-    <div class="pulse-line"></div>
-    <div class="cv-node">
-      <div class="cv-tag">Signal · Ops + Finance · Mar 28</div>
-      <div class="cv-txt">Onboarding friction +40% · CAC up 28%</div>
-      <div class="cv-meta">Detected across HubSpot + QuickBooks</div>
-      <div class="cv-badge b-warn">Undetected</div>
-    </div>
-    <div class="pulse-line"></div>
-    <div class="cv-node triggered">
-      <div class="cv-tag">Aitora Intelligence · Now</div>
-      <div class="cv-txt">Root cause found 3 corrective actions surfaced</div>
-      <div class="cv-meta">Confidence: High · Time saved: approx 3 months</div>
-      <div class="cv-badge b-ok">Resolved</div>
-    </div>
-  </div>
-</div>
-</section>
 
-<div class="stats-band reveal">
-  <div class="stat-item"><div class="stat-n blue">3.1T</div><div class="stat-l">Lost annually to poor organisational decisions</div><div class="stat-src">McKinsey Global Institute</div></div>
-  <div class="stat-item"><div class="stat-n">67%</div><div class="stat-l">Of leaders feel data rich but still decision blind</div><div class="stat-src">PwC Global Analytics Survey</div></div>
-  <div class="stat-item"><div class="stat-n">73 days</div><div class="stat-l">Average lag between a decision and its business impact</div><div class="stat-src">Aitora Research, 2026</div></div>
-  <div class="stat-item"><div class="stat-n blue">0</div><div class="stat-l">Tools built for decision intelligence at your company size</div></div>
-</div>
-
-<section class="prob-section">
-  <div class="s-wrap">
-    <div class="s-kicker reveal">The Problem</div>
-    <div class="s-h reveal">Three gaps costing you<br><em>more than you realise</em></div>
-    <div class="prob-grid reveal">
-      <div class="prob-card"><span class="prob-icon">◊</span><h3>Data is everywhere.<br>Insight is nowhere.</h3><p>CRM, HRIS, finance, ops each generates data, each tells a partial story. Stitching it together manually is a full time job nobody has.</p></div>
-      <div class="prob-card"><span class="prob-icon">◊</span><h3>Every team sees<br>a different truth.</h3><p>Sales sees pipeline. Product sees activation. Finance sees revenue. Everyone optimises their slice while the real cause and effect chain stays invisible.</p></div>
-      <div class="prob-card"><span class="prob-icon">◊</span><h3>Decisions leave<br>no trace.</h3><p>You see that churn spiked. You cannot see that a pricing change three months ago caused it. The lag between decision and impact is where all the learning dies.</p></div>
+    <!-- Stats band -->
+    <div class="stats-band reveal">
+      <div class="stat-item"><div class="stat-n blue">3.1T</div><div class="stat-l">Lost annually to poor decisions</div><div class="stat-src">McKinsey</div></div>
+      <div class="stat-item"><div class="stat-n">67%</div><div class="stat-l">Leaders data‑rich but blind</div><div class="stat-src">PwC</div></div>
+      <div class="stat-item"><div class="stat-n">73 days</div><div class="stat-l">Lag between decision & impact</div><div class="stat-src">Aitora</div></div>
+      <div class="stat-item"><div class="stat-n blue">0</div><div class="stat-l">Tools for decision intelligence at this scale</div></div>
     </div>
-  </div>
-</section>
 
-<div class="proof-bar reveal">
-  <p>"You are making high stakes calls with partial information not because you lack data, but because <strong>you lack the connections between it.</strong>"</p>
-</div>
+    <!-- Problem -->
+    <div class="reveal" id="use-cases">
+      <div class="section-label">The mid‑market decision gap</div>
+      <div class="section-title">Three gaps costing you more than you realise</div>
+    </div>
+    <div class="cards-grid reveal">
+      <div class="card"><div class="card-icon">📊</div><h3>Data is everywhere. Insight is nowhere.</h3><p>CRM, product analytics, billing – each tells a partial story. Stitching it is a part‑time job for a full‑time leader.</p></div>
+      <div class="card"><div class="card-icon">🔄</div><h3>Every team sees a different truth.</h3><p>Sales sees pipeline, product sees activation, CS sees churn, finance sees runway. The real cause‑and‑effect chain stays invisible.</p></div>
+      <div class="card"><div class="card-icon">⏳</div><h3>Decisions leave no trace.</h3><p>You feel churn or CAC move but cannot see which decision 2–3 months ago caused it. That lag kills learning.</p></div>
+    </div>
 
-<section class="compare-section">
-  <div class="s-wrap">
-    <div class="s-kicker reveal">Where Aitora sits</div>
-    <div class="s-h reveal">Every other tool shows you <em>what.</em><br>We show you <em>why.</em></div>
+    <!-- Positioning -->
+    <div class="reveal">
+      <div class="section-label">Where Aitora sits in your stack</div>
+      <div class="section-title">Every other tool shows you what. We show you why.</div>
+    </div>
     <div class="compare-grid reveal">
-      <div class="cc them"><div class="cc-head">What you already have</div><div class="cc-brand">BI Tools &amp; Dashboards</div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Shows what happened last quarter</div></div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Single department, siloed view</div></div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">No decision tracing or causality</div></div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Forgets everything over time</div></div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Requires an analyst to interpret</div></div></div>
-      <div class="cc us"><div class="cc-head">What Aitora adds</div><div class="cc-brand">Aitora</div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Shows <em>why</em> it happened and what to do</div></div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Cross departmental cause and effect</div></div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Traces every decision to its downstream impact</div></div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Memory that compounds over time</div></div><div class="cc-row"><div class="cc-dot"></div><div class="cc-row-t">Intelligence your CEO can act on directly</div></div></div>
+      <div class="compare-col left"><h4>Today in your stack</h4>
+        <div class="compare-row"><div class="compare-dot"></div><div class="compare-text">BI tools show what happened last month in each silo.</div></div>
+        <div class="compare-row"><div class="compare-dot"></div><div class="compare-text">Dashboards tell different stories across teams.</div></div>
+        <div class="compare-row"><div class="compare-dot"></div><div class="compare-text">No memory of past decisions, only snapshots.</div></div>
+        <div class="compare-row"><div class="compare-dot"></div><div class="compare-text">Requires an analyst to interpret.</div></div>
+      </div>
+      <div class="compare-col right"><h4>What Aitora adds</h4>
+        <div class="compare-row"><div class="compare-dot"></div><div class="compare-text"><strong>Why</strong> it happened, who influenced it, and what to do next.</div></div>
+        <div class="compare-row"><div class="compare-dot"></div><div class="compare-text">One cross‑department decision graph linking actions to outcomes.</div></div>
+        <div class="compare-row"><div class="compare-dot"></div><div class="compare-text">Living memory of decisions that compounds over time.</div></div>
+        <div class="compare-row"><div class="compare-dot"></div><div class="compare-text">Designed for CEOs, COOs, and heads to act on directly.</div></div>
+      </div>
     </div>
-  </div>
-</section>
 
-<section class="how-section" id="how">
-  <div class="s-wrap">
-    <div class="s-kicker reveal">How it works</div>
-    <div class="s-h reveal">Live in your business<br>in <em>two weeks</em></div>
+    <!-- How it works -->
+    <div class="reveal" id="about">
+      <div class="section-label">Live in your business in 14 days</div>
+      <div class="section-title">From connection to explanation in two weeks</div>
+    </div>
     <div class="steps reveal">
-      <div class="step-item"><div class="step-num">01</div><div class="step-tag">Week 1</div><h3>Connect</h3><p>Read-only connectors to your CRM, HRIS, finance, and ops tools. No disruption, no migration. Works with what you already have.</p><div class="step-eg">e.g. HubSpot + Darwinbox + Zoho connected in &lt;30 min</div></div>
-      <div class="step-item"><div class="step-num">02</div><div class="step-tag">Week 2</div><h3>Map</h3><p>Aitora builds a living decision graph linking actions to outcomes across every tool, team, and timestamp in your company.</p><div class="step-eg">e.g. Pricing change Day 1 → Churn signal Day 73</div></div>
-      <div class="step-item"><div class="step-num">03</div><div class="step-tag">Ongoing</div><h3>Explain</h3><p>Ask in plain language. Get a clear answer: what caused it, who influenced it, and exactly what your leadership team should do next.</p><div class="step-eg">e.g. "Why did Q3 churn increase?" → Root cause + 3 actions</div></div>
+      <div class="step"><div class="step-badge">Week 1</div><h3>Connect</h3><p>Read‑only connectors to your CRM, product analytics, billing, HRIS. Live in under 60 minutes.</p><div class="step-note">HubSpot + Chargebee + Freshdesk + Darwinbox</div></div>
+      <div class="step"><div class="step-badge">Week 2</div><h3>Map</h3><p>Your first intelligence graph linking decisions to revenue, churn, and friction. <strong>First trace in 14 days or we pause & fix before you pay.</strong></p></div>
+      <div class="step"><div class="step-badge">Ongoing</div><h3>Explain</h3><p>Weekly 1‑hour session: we surface root causes and 2–3 actions for your leadership team.</p><div class="step-note">Ask: “Why did Q3 churn increase?” → root causes + 3 actions.</div></div>
     </div>
-  </div>
-</section>
 
-<section class="preview-section">
-  <div class="s-wrap">
-    <div class="s-kicker reveal">See it in action</div>
-    <div class="s-h reveal">What Aitora surfaces<br><em>automatically</em></div>
-    <div class="s-sub reveal">This is the kind of clarity Aitora delivers within days of connecting your tools.</div>
-    <div class="mock reveal">
-      <div class="mock-bar"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#febc2e"></div><div class="m-dot" style="background:#28c840"></div><div class="mock-title">Aitora — Intelligence Card — Q3 Analysis</div></div>
-      <div class="mock-body"><div class="mock-card"><div class="mc-top"><div><div class="mc-t">Decision: Changed ICP targeting criteria</div><div class="mc-d">Detected via Salesforce + HubSpot · April 14, 2026</div></div><div class="mc-badge">High impact</div></div><div class="imp-label-row">Measured impact 73 days post decision</div><div class="imp-row"><div class="imp-l">Onboarding friction</div><div class="imp-track"><div class="imp-fill fill-r" style="width:78%"></div></div><div class="imp-v v-r">+40%</div></div><div class="imp-row"><div class="imp-l">30 day churn rate</div><div class="imp-track"><div class="imp-fill fill-r" style="width:45%"></div></div><div class="imp-v v-r">+18%</div></div><div class="imp-row"><div class="imp-l">Sales cycle length</div><div class="imp-track"><div class="imp-fill fill-a" style="width:35%"></div></div><div class="imp-v v-a">+22d</div></div><div class="root-box">New ICP segment requires 40% more implementation support. Current onboarding was built for self serve. Mismatch between segment expectation and product experience is driving early churn.</div><div class="act-label">Recommended actions</div><div class="act-item"><div class="act-n">1</div>Revert ICP or create separate onboarding track for new segment</div><div class="act-item"><div class="act-n">2</div>Add dedicated CSM handoff at Day 3 for high-touch segment</div><div class="act-item"><div class="act-n">3</div>Realign sales incentives to reflect actual cycle length</div></div></div>
+    <!-- Example intelligence card -->
+    <div class="reveal">
+      <div class="section-label">What Aitora surfaces automatically</div>
+      <div class="section-sub">Anonymised example based on real mid‑market patterns.</div>
     </div>
-  </div>
-</section>
+    <div class="mock-card reveal">
+      <div class="illustrative">Illustrative data</div>
+      <div class="mock-header"><div class="mock-decision"><h4>Decision: Changed ICP targeting to higher‑ACV segment</h4><p>Detected via Salesforce + HubSpot · April 14, 2026</p></div><div style="background: rgba(0,87,255,0.2); padding: 0.2rem 0.6rem; border-radius: 20px; font-size:0.6rem;">High impact</div></div>
+      <div class="impact-row"><span>Onboarding friction</span><span class="impact-value">+40%</span></div>
+      <div class="impact-row"><span>30‑day churn rate</span><span class="impact-value">+18%</span></div>
+      <div class="impact-row"><span>Sales cycle length</span><span class="impact-value">+22 days</span></div>
+      <div class="explanation">New ICP segment requires ~40% more implementation support. Current onboarding built for self‑serve. Mismatch driving early churn.</div>
+      <div class="action-item"><span>1.</span> Create separate onboarding track for new segment or revert ICP</div>
+      <div class="action-item"><span>2.</span> Add dedicated CSM handoff at Day 3 for high‑touch customers</div>
+      <div class="action-item"><span>3.</span> Realign sales incentives to reflect actual cycle length</div>
+    </div>
 
-<section class="cta-section" id="apply">
-  <div class="cta-inner">
-    <div class="cta-l reveal">
-      <div class="spots-row"><div class="spot spot-f"></div><div class="spot spot-f"></div><div class="spot spot-o"></div><div class="spot spot-o"></div><div class="spot spot-o"></div><div class="spots-txt"><strong>2 of 5 spots</strong> filled</div></div>
-      <!-- Modified line: <span class="stat-number">5</span> for custom font -->
-      <h2>We're building this<br>with <em><span class="stat-number">5</span> companies.</em><br>Not for them.</h2>
-      <p>Design partners shape the product from day one and receive intelligence from week one. This is not a waitlist. It is a working partnership.</p>
-      <div class="benefit-list">
-        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Intelligence live in your business</strong> from week one</div></div>
-        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Direct input into the roadmap</strong> your problems get built first</div></div>
-        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Founding partner pricing</strong> locked in for the life of your contract</div></div>
-        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Co-authored case study</strong> at launch your story at the centre</div></div>
-        <div class="benefit"><div class="b-icon">✓</div><div class="b-txt"><strong>Named founding partner</strong> on our launch page and in funding materials</div></div>
+    <!-- Design partner offer -->
+    <div class="partner-card reveal">
+      <div class="partner-badge">Founding design partner · 3 of 5 spots left</div>
+      <h3 style="font-size: 1.2rem; margin-bottom: 0.3rem;">We're building this with 5 Series B SaaS companies</h3>
+      <p style="font-size:0.8rem;">Product‑led SaaS in India, US, EU, with 200–500 people.</p>
+      <ul class="partner-list">
+        <li>First intelligence graph in 14 days for 2 departments</li>
+        <li>Weekly 1‑hour working session with leadership/ops owner</li>
+        <li>Early access pricing: from ₹1,00,000/month for 2 departments</li>
+        <li>Product shaped around your problems, not a generic roadmap</li>
+        <li>Priority support directly from founding team</li>
+      </ul>
+      <p style="margin-top: 0.8rem; font-size:0.75rem;">This is not a waitlist. It is a working partnership with measurable outcomes every month.</p>
+    </div>
+
+    <!-- CTA form -->
+    <div id="apply" class="reveal" style="scroll-margin-top: 80px;">
+      <div class="section-label">Apply for a 20‑minute fit conversation</div>
+      <div class="section-sub">No sales deck. No long demo. We'll look at one decision you care about.</div>
+    </div>
+    <div class="form-card reveal">
+      <form id="partnerForm">
+        <div class="form-group"><label>Your name</label><input type="text" id="name" placeholder="First and last name" required></div>
+        <div class="form-group"><label>Company · role · team size</label><input type="text" id="companyRole" placeholder="e.g. Acme, CEO, 280 people"></div>
+        <div class="form-group"><label>Work email</label><input type="email" id="email" required></div>
+        <div class="form-group"><label>Phone number</label><input type="tel" id="phone" placeholder="Your contact number"></div>
+        <div class="form-group"><label>What decision from the last 3–6 months do you wish you understood better?</label><textarea id="decision" rows="2" placeholder="Be specific – we'll come prepared."></textarea></div>
+        <button type="button" class="btn-primary" style="width:100%;" onclick="submitForm()">Apply for access →</button>
+        <div class="form-note">We review every application personally. If it’s a fit, you’ll hear from us within 24 hours with a proposed time and a short list of data sources to review.</div>
+      </form>
+    </div>
+
+    <!-- FAQ -->
+    <div class="reveal">
+      <div class="section-label">Common questions</div>
+      <div class="faq-list">
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">We already have Tableau / Power BI. How is this different? <span>+</span></div><div class="faq-answer">Aitora does not replace BI. They show what happened in each silo; Aitora shows why it happened across teams, and what to do next.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What data does Aitora need access to? <span>+</span></div><div class="faq-answer">Read‑only access to CRM, product analytics, billing, HRIS, support tools. Typical: HubSpot, Salesforce, Chargebee, Freshdesk, Darwinbox.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How quickly will we see value? <span>+</span></div><div class="faq-answer">First decision traced within 14 days. If we can’t produce that, we pause and fix the setup before invoicing.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What does the design partner commitment look like? <span>+</span></div><div class="faq-answer">1‑hour working session each week with a decision‑maker. We handle the heavy lifting.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How much time will setup take? <span>+</span></div><div class="faq-answer">Under 60 minutes of coordination with your CRM/analytics owners.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How much does it cost? <span>+</span></div><div class="faq-answer">Early access starts at ₹1,00,000/month for 2 departments. Expansion pricing agreed upfront.</div></div>
       </div>
     </div>
-    <div class="reveal reveal-d1">
-      <div class="form-card">
-        <h3>Apply for a conversation</h3>
-        <p class="f-sub">20 minutes. No deck. No pitch. We ask 5 questions and tell you honestly if it's a fit.</p>
-        <label class="f-label">Your name</label>
-        <input class="f-input" id="nameInput" type="text" placeholder="First and last name">
-        <label class="f-label">Company · Role · Team size</label>
-        <input class="f-input" id="companyInput" type="text" placeholder="e.g. Acme — CEO — 280 people">
-        <label class="f-label">Work email</label>
-        <input class="f-input" id="emailInput" type="email" placeholder="you@company.com">
-        <label class="f-label">Phone number</label>
-        <input class="f-input" id="phoneInput" type="tel" placeholder="Your contact number">
-        <label class="f-label">What decision do you wish you understood better?</label>
-        <textarea class="f-input" id="decisionInput" placeholder="The more specific the better, we'll come prepared."></textarea>
-        <button class="f-submit" onclick="handleApply(this)">Apply for access &rarr;</button>
-        <p class="f-note">We review every application personally. If it's a fit, you'll hear from us within 24 hours.</p>
-      </div>
-    </div>
   </div>
-</section>
-
-<section class="faq-section">
-  <div class="faq-inner">
-    <div class="faq-h reveal">Common questions</div>
-    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>We already have Tableau / Power BI. How is this different?</span><div class="faq-ico">+</div></div><div class="faq-a">BI tools show you what happened. Aitora shows you why tracing the specific decision, months earlier, that caused what you're seeing now. They're complementary. You keep your dashboards. Aitora is the causal intelligence layer on top.</div></div>
-    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>What data does Aitora need access to?</span><div class="faq-ico">+</div></div><div class="faq-a">Read-only API access to your existing tools like CRM, HRIS, finance, product analytics. We never write to your systems. Data is encrypted in transit and at rest, stored in your region, and never used to train models. Your data stays yours.</div></div>
-    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>How quickly will we see value?</span><div class="faq-ico">+</div></div><div class="faq-a">Design partners typically see their first intelligence output within the first two weeks of connection. Most identify at least one significant previously invisible cause and effect chain within 10 days of going live.</div></div>
-    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>What does the design partner commitment look like?</span><div class="faq-ico">+</div></div><div class="faq-a">A paid engagement that covers our time and your data access. A 30 minute fortnightly call to share feedback. Honesty about what is and is not working. In exchange: a product shaped around your business, founding partner pricing, and direct access to the founding team.</div></div>
-    <div class="faq-item reveal"><div class="faq-q" onclick="faq(this)"><span>How much time will this take from our team to set up?</span><div class="faq-ico">+</div></div><div class="faq-a">Under 30 minutes for most setups. We handle configuration and the initial intelligence mapping. You do not need a data team or technical resource. Onboarding is handled entirely by our founding team not a support queue.</div></div>
-  </div>
-</section>
+</main>
 
 <footer>
-  <div class="f-logo">Aitora</div>
-  <div class="f-links">
-    <a href="#">Privacy</a>
-    <a href="#">Security</a>
-    <a href="#">Contact</a>
-    <a href="tel:9538966838" class="contact-number">📞 9538966838</a>
+  <div class="footer-inner">
+    <div>© 2026 Aitora · Built in Bengaluru · data first</div>
+    <div><a href="#" style="color: rgba(255,255,255,0.5); text-decoration: none;">Privacy</a> | <a href="#" style="color: rgba(255,255,255,0.5); text-decoration: none;">Security</a> | <a href="tel:9538966838" style="color: rgba(255,255,255,0.8);">📞 9538966838</a></div>
   </div>
-  <div class="f-copy">Founded 2026 · Building in Bengaluru. Thinking about the world. © 2026 Aitora.</div>
 </footer>
 
 <script>
-const cur=document.getElementById('cur'),curR=document.getElementById('curR');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-function lerp(a,b,t){return a+(b-a)*t}
-(function loop(){rx=lerp(rx,mx,.12);ry=lerp(ry,my,.12);curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
-document.querySelectorAll('a,button,.faq-q').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';curR.style.transform='translate(-50%,-50%) scale(1.5)'});
-  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.transform='translate(-50%,-50%) scale(1)'});
-});
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
 
-function faq(el){
-  const item=el.parentElement;
-  const open=item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-  if(!open)item.classList.add('open');
-}
-
-function handleApply(btn){
-  var name = document.getElementById('nameInput').value.trim();
-  var companyRole = document.getElementById('companyInput').value.trim();
-  var email = document.getElementById('emailInput').value.trim();
-  var phone = document.getElementById('phoneInput').value.trim();
-  var decision = document.getElementById('decisionInput').value.trim();
-
-  if(!name || !email) {
-    alert('Please fill at least your name and email.');
-    return;
-  }
-
-  fetch('https://formspree.io/f/xnjwqjbe', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name: name,
-      companyRole: companyRole,
-      email: email,
-      phone: phone,
-      decision: decision
-    })
-  }).then(function(response) {
-    if(response.ok) {
-      btn.textContent = 'Application sent — we\'ll be in touch within 24 hours ✓';
-      btn.classList.add('sent');
-      document.getElementById('nameInput').value = '';
-      document.getElementById('companyInput').value = '';
-      document.getElementById('emailInput').value = '';
-      document.getElementById('phoneInput').value = '';
-      document.getElementById('decisionInput').value = '';
-    } else {
-      alert('Something went wrong. Please try again.');
-    }
-  }).catch(function(error) {
-    alert('Error: ' + error.message);
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
   });
 
-  if(typeof gtag === 'function') {
-    gtag('event', 'form_submit', {
-      event_category: 'conversion',
-      event_label: 'design_partner_application'
-    });
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
   }
-}
+  animateRing();
 
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})
-},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  const interactive = document.querySelectorAll('a, button, .card, .step, .faq-question, .nav-links a, .nav-cta, .btn-primary, .stat-item');
+  interactive.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
+      cursorRing.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      cursorRing.style.borderColor = 'rgba(0,87,255,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursorRing.style.borderColor = '#0057FF';
+    });
+  });
 
-const barObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.imp-fill').forEach(b=>{const w=b.style.width;b.style.width='0%';setTimeout(()=>b.style.width=w,150);});
-      barObs.unobserve(e.target);
+  function toggleFaq(element) {
+    const parent = element.parentElement;
+    parent.classList.toggle('open');
+    const span = element.querySelector('span');
+    span.textContent = parent.classList.contains('open') ? '−' : '+';
+  }
+
+  function submitForm() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!name || !email) {
+      alert('Please fill name and email.');
+      return;
     }
-  })
-},{threshold:.3});
-document.querySelectorAll('.mock').forEach(el=>barObs.observe(el));
+    alert('Application received! We’ll be in touch within 24 hours.');
+  }
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
